@@ -13,8 +13,6 @@ const CounterApp = () => {
 		counter4: 40,
 	});
 
-	console.log(state);
-
 	const { counter1, counter2, counter3, counter4 } = state;
 
 	return (

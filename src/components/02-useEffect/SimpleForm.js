@@ -10,9 +10,7 @@ const SimpleForm = () => {
 
 	const { name, email } = formState;
 
-	useEffect(() => {
-		console.log('Holi');
-	}, []);
+	useEffect(() => {}, []);
 
 	const handleInputChange = ({ target }) => {
 		setFormState({
@@ -20,7 +18,6 @@ const SimpleForm = () => {
 			[target.name]: target.value,
 		});
 	};
-	console.log(formState);
 
 	return (
 		<>
