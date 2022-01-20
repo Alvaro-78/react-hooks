@@ -1,8 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 // Este Hook devolverá el estado del la llamada
 
 const useFetch = (url) => {
+	const isMounted = useRef(true);
+
 	const [state, setState] = useState({
 		data: null,
 		loading: true,
@@ -10,16 +12,26 @@ const useFetch = (url) => {
 	});
 
 	useEffect(() => {
+		return () => {
+			isMounted.current = false;
+		};
+	}, []);
+
+	useEffect(() => {
 		setState({ data: null, loading: true, error: null });
 
 		fetch(url)
 			.then((res) => res.json())
 			.then((data) => {
-				setState({
-					loading: false,
-					error: null,
-					data,
-				});
+				if (isMounted.current) {
+					setState({
+						loading: false,
+						error: null,
+						data,
+					});
+				} else {
+					console.log('setState no se llamó');
+				}
 			});
 	}, [url]);
 
